@@ -222,7 +222,7 @@ export const GARDEN_FLOWERS: FlowerConfig[] = [
     layer: 'front',
     delay: 1.15,
     interactive: true,
-    message: 'Mai Thủy Tiên — Chúc đóa hoa rạng rỡ của tháng Mười luôn ngát hương thơm và niềm vui!',
+    message: 'Mai Thủy Tiên — Chúc đóa hoa rạng rỡ của tháng 5 luôn ngát hương thơm và niềm vui!',
     ariaLabel: 'Đóa hoa thủy tiên tiền cảnh - Nhấn để nhận lời chúc',
   },
   {
@@ -318,7 +318,7 @@ export const GARDEN_FLOWERS: FlowerConfig[] = [
     layer: 'front',
     delay: 1.05,
     interactive: true,
-    message: 'Cẩm tú cầu xanh đón hoàng hôn — chúc bạn luôn có những khoảng lặng thư thái ngắm nhìn trời mây!',
+    message: 'Cẩm tú cầu xanh, hoàng hôn nhẹ nhàng — chúc bạn dù bận rộn đến đâu cũng có thời gian dành cho bản thân, làm điều mình thích và nghỉ ngơi một chút.!',
     ariaLabel: 'Đóa cẩm tú cầu xanh lớn tiền cảnh phải - Nhấn để nhận lời chúc',
   },
   {
@@ -332,7 +332,7 @@ export const GARDEN_FLOWERS: FlowerConfig[] = [
     layer: 'front',
     delay: 1.1,
     interactive: true,
-    message: 'Mong ống kính của Tiên luôn thu trọn những gam màu hoàng hôn ấm áp nhất! 📸🌅',
+    message: 'Chúc Tiên luôn chụp được những khoảnh khắc thật đẹp, nhất là những chiều hoàng hôn đầy màu sắc nhé! 📸🌅',
     ariaLabel: 'Đóa tulip vàng champagne tiền cảnh - Nhấn để nhận lời chúc nhiếp ảnh',
   },
 ];

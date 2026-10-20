@@ -11,12 +11,14 @@ interface PhotoCard {
   subtitle: string;
   timeTag: string;
   quote: string;
+  imageSrc: string;
   accentColor: string;
   svgScene: React.ReactNode;
 }
 
 export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClose }) => {
   const [activePhoto, setActivePhoto] = useState<number>(0);
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
   if (!isOpen) return null;
 
@@ -25,8 +27,9 @@ export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClos
       id: 'photo-sunset',
       title: 'Hoàng Hôn 17:30',
       subtitle: 'Golden Hour Silhouette',
-      timeTag: '35mm Film • ISO 200',
-      quote: '“Khi mặt trời buông xuống, cả bầu trời hóa thành một bức tranh màu đào và tím mauve dịu dàng nhất.”',
+      timeTag: 'Film',
+      quote: '“Một buổi chiều đẹp, một chút nắng và một tấm ảnh xinh. Chúc Tiên ngày nào cũng có những niềm vui nho nhỏ như vậy nhé!”',
+      imageSrc: '/assets/images/sunset.jpg',
       accentColor: '#F2B49B',
       svgScene: (
         <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
@@ -55,10 +58,11 @@ export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClos
     },
     {
       id: 'photo-flora',
-      title: 'Bình Hoa Thủy Tiên & Cẩm Tú Cầu',
+      title: 'Bình Hoa',
       subtitle: 'Artistic Floral Arrangement',
-      timeTag: 'Studio Lighting • f/2.8',
-      quote: '“Một chiếc bình gốm nhỏ, vài nhành thủy tiên trắng và chùm cẩm tú cầu xanh mát — đủ để làm bừng sáng cả một ngày thu.”',
+      timeTag: 'Studio Lighting',
+      quote: '“Mong bạn sẽ luôn giữ được nét rất riêng của mình như cách mà bạn cắm bình hoa này.” 🌷',
+      imageSrc: '/assets/images/flowers.jpg',
       accentColor: '#7EA6C8',
       svgScene: (
         <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
@@ -94,6 +98,7 @@ export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClos
       subtitle: 'Memories Through The Lens',
       timeTag: 'Warm Memories • 20.10',
       quote: '“Mong mỗi ngày của Tiên đều có thật nhiều bức ảnh đẹp để ngắm nhìn, và nụ cười rạng ngời luôn ở trên môi!”',
+      imageSrc: '/assets/images/portrait.jpg',
       accentColor: '#BD7E8B',
       svgScene: (
         <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
@@ -122,6 +127,9 @@ export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClos
       ),
     },
   ];
+
+  const currentPhoto = photos[activePhoto];
+  const hasImageFailed = failedImages[currentPhoto.id];
 
   return (
     <div
@@ -208,7 +216,7 @@ export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClos
             Bộ Sưu Tập Khoảnh Khắc
           </h3>
           <p style={{ fontSize: '0.825rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-sans)' }}>
-            Những gam màu hoàng hôn và đóa hoa dành tặng riêng cho Tiên
+            Những bức ảnh hoàng hôn và đóa hoa dành tặng cho Tiên
           </p>
         </div>
 
@@ -225,7 +233,7 @@ export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClos
             transition: 'all 0.3s ease',
           }}
         >
-          {/* Vùng ảnh */}
+          {/* Vùng ảnh: ưu tiên ảnh trong public/assets/images/, tự động fallback nếu chưa có file */}
           <div
             style={{
               width: '100%',
@@ -233,9 +241,28 @@ export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClos
               borderRadius: '6px',
               overflow: 'hidden',
               backgroundColor: '#F7EDE2',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            {photos[activePhoto].svgScene}
+            {!hasImageFailed ? (
+              <img
+                src={currentPhoto.imageSrc}
+                alt={currentPhoto.title}
+                onError={() =>
+                  setFailedImages((prev) => ({ ...prev, [currentPhoto.id]: true }))
+                }
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                }}
+              />
+            ) : (
+              currentPhoto.svgScene
+            )}
           </div>
 
           {/* Chân ảnh Polaroid */}
@@ -248,7 +275,7 @@ export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClos
                 color: '#3B2E2A',
               }}
             >
-              {photos[activePhoto].title}
+              {currentPhoto.title}
             </div>
             <div
               style={{
@@ -260,7 +287,7 @@ export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClos
                 margin: '2px 0 8px',
               }}
             >
-              {photos[activePhoto].timeTag}
+              {currentPhoto.timeTag}
             </div>
             <p
               style={{
@@ -272,7 +299,7 @@ export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClos
                 padding: '0 10px',
               }}
             >
-              {photos[activePhoto].quote}
+              {currentPhoto.quote}
             </p>
           </div>
         </div>
@@ -284,7 +311,7 @@ export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClos
             alignItems: 'center',
             justifyContent: 'center',
             gap: '10px',
-            marginTop: '20px',
+            marginTop: '18px',
           }}
         >
           {photos.map((photo, idx) => (
@@ -296,8 +323,12 @@ export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClos
               style={{
                 padding: '6px 14px',
                 borderRadius: '20px',
-                border: activePhoto === idx ? '1px solid var(--color-dusty-rose)' : '1px solid rgba(244, 215, 161, 0.5)',
-                backgroundColor: activePhoto === idx ? 'var(--color-dusty-rose)' : 'transparent',
+                border:
+                  activePhoto === idx
+                    ? '1px solid var(--color-dusty-rose)'
+                    : '1px solid rgba(244, 215, 161, 0.5)',
+                backgroundColor:
+                  activePhoto === idx ? 'var(--color-dusty-rose)' : 'transparent',
                 color: activePhoto === idx ? '#FFFFFF' : 'var(--color-text-secondary)',
                 fontSize: '0.8rem',
                 fontFamily: 'var(--font-sans)',
@@ -308,6 +339,18 @@ export const PolaroidGallery: React.FC<PolaroidGalleryProps> = ({ isOpen, onClos
               {idx === 0 ? '🌅 Hoàng hôn' : idx === 1 ? '💐 Bình hoa' : '📸 Khoảnh khắc'}
             </button>
           ))}
+        </div>
+
+        {/* Gợi ý thư mục đặt ảnh */}
+        <div
+          style={{
+            marginTop: '14px',
+            fontSize: '0.725rem',
+            color: 'var(--color-text-muted)',
+            fontFamily: 'var(--font-sans)',
+            textAlign: 'center',
+          }}
+        >
         </div>
       </div>
     </div>
