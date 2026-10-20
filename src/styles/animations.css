@@ -1,0 +1,197 @@
+/* Animations for Golden Hour Bloom */
+
+/* 1. Bloom Animation: Organic growth with stagger */
+@keyframes bloomStagger {
+  0% {
+    opacity: 0;
+    transform: scale(0.15) translateY(24px) rotate(var(--rot-init, -10deg));
+  }
+  60% {
+    opacity: 0.9;
+    transform: scale(1.04) translateY(-2px) rotate(var(--rot-target, 0deg));
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(var(--rot-target, 0deg));
+  }
+}
+
+/* 2. Gentle Botanicals Sway */
+@keyframes botanicalSway {
+  0%, 100% {
+    transform: rotate(var(--rot-target, 0deg));
+  }
+  50% {
+    transform: rotate(calc(var(--rot-target, 0deg) + 2deg)) translateY(-1.5px);
+  }
+}
+
+/* 3. Golden Hour Ambient Light Breath */
+@keyframes goldenBreathing {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08) translate(-10px, -5px);
+  }
+}
+
+/* 4. Sunlight Ray Shimmer */
+@keyframes sunRayDrift {
+  0% {
+    transform: rotate(-25deg) translateX(-10%);
+    opacity: 0.2;
+  }
+  50% {
+    transform: rotate(-22deg) translateX(5%);
+    opacity: 0.45;
+  }
+  100% {
+    transform: rotate(-25deg) translateX(-10%);
+    opacity: 0.2;
+  }
+}
+
+/* 5. Falling Petals */
+@keyframes petalFall1 {
+  0% {
+    top: -5%;
+    left: var(--start-x, 20%);
+    transform: translate3d(0, 0, 0) rotate(0deg) rotateY(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    top: 105%;
+    left: calc(var(--start-x, 20%) + var(--drift-x, 80px));
+    transform: translate3d(60px, 0, 0) rotate(360deg) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes petalFall2 {
+  0% {
+    top: -5%;
+    left: var(--start-x, 60%);
+    transform: translate3d(0, 0, 0) rotate(0deg) rotateX(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.9;
+  }
+  88% {
+    opacity: 0.85;
+  }
+  100% {
+    top: 105%;
+    left: calc(var(--start-x, 60%) - var(--drift-x, 100px));
+    transform: translate3d(-80px, 0, 0) rotate(-420deg) rotateX(360deg);
+    opacity: 0;
+  }
+}
+
+/* 6. Sparkle Flash */
+@keyframes sparklePop {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(90deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+/* 7. Envelope Open Flap */
+@keyframes flapOpen {
+  0% {
+    transform: rotateX(0deg);
+    z-index: 5;
+  }
+  100% {
+    transform: rotateX(180deg);
+    z-index: 1;
+  }
+}
+
+/* 8. Letter Rising from Envelope */
+@keyframes letterRise {
+  0% {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+  60% {
+    transform: translateY(-110px) scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-80px) scale(1);
+    opacity: 1;
+  }
+}
+
+/* 9. Soft Floating for Invitation Envelope */
+@keyframes envelopeHover {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* 10. Card Entrance */
+@keyframes cardAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 11. Pulse Glow for Clickable Flowers */
+@keyframes interactiveGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(244, 215, 161, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(242, 180, 155, 0.85));
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .petal-item,
+  .sun-light-glow,
+  .sparkle-element {
+    display: none !important;
+  }
+
+  .flower-element {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

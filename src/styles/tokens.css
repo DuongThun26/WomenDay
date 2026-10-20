@@ -1,0 +1,63 @@
+:root {
+  /* Editorial Floral + Golden Hour Palette */
+  --color-warm-ivory: #FFF8F0;
+  --color-champagne: #F4D7A1;
+  --color-peach: #F2B49B;
+  --color-blush-pink: #E9A5B2;
+  --color-dusty-rose: #BD7E8B;
+  --color-mauve: #A78AAB;
+  --color-sage-green: #9BAE8A;
+  --color-deep-botanical: #405746;
+  --color-warm-brown: #6B5147;
+
+  /* Text & Surfaces */
+  --color-text-primary: #372A24;
+  --color-text-secondary: #5C453C;
+  --color-text-muted: #8E7A70;
+  --color-gold-accent: #D4A373;
+  --color-gold-glow: rgba(244, 215, 161, 0.65);
+  --color-card-bg: rgba(255, 251, 247, 0.92);
+  --color-card-border: rgba(244, 215, 161, 0.55);
+  --color-envelope-body: #F7EDE2;
+  --color-envelope-flap: #EEDBC8;
+  --color-envelope-shadow: rgba(84, 53, 38, 0.16);
+  --color-seal-gold: #C98A4B;
+  --color-seal-glow: rgba(201, 138, 75, 0.4);
+
+  /* Special Botanicals */
+  --color-hydrangea-blue: #7EA6C8;
+  --color-hydrangea-soft: #A8C4DF;
+  --color-hydrangea-deep: #4D769E;
+  --color-narcissus-petal: #FFFDF8;
+  --color-narcissus-cup: #F89B29;
+
+  /* Typography */
+  --font-serif-display: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-serif-title: 'Playfair Display', Georgia, serif;
+  --font-serif-body: 'Cormorant Garamond', Georgia, serif;
+  --font-cursive: 'Great Vibes', 'Playfair Display', cursive, serif;
+  --font-sans: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Shadows & Glow */
+  --shadow-soft: 0 10px 25px -5px rgba(107, 81, 71, 0.08);
+  --shadow-card: 0 20px 45px -10px rgba(64, 87, 70, 0.18), 0 2px 8px rgba(107, 81, 71, 0.06);
+  --shadow-envelope: 0 25px 50px -12px rgba(84, 53, 38, 0.22);
+  --shadow-glow: 0 0 40px rgba(244, 215, 161, 0.45);
+  --shadow-btn: 0 8px 20px rgba(189, 126, 139, 0.25);
+
+  /* Layering Z-Indices */
+  --z-bg: 1;
+  --z-garden-back: 10;
+  --z-card: 20;
+  --z-garden-mid: 25;
+  --z-garden-front: 35;
+  --z-petals: 45;
+  --z-controls: 50;
+  --z-tooltip: 60;
+  --z-envelope-modal: 100;
+
+  /* Transitions */
+  --ease-out-gentle: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-elastic: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
