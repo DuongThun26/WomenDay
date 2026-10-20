@@ -10,16 +10,22 @@ interface FlowerGardenProps {
 
 export const FlowerGarden: React.FC<FlowerGardenProps> = ({ isGardenActive }) => {
   const [selectedFlower, setSelectedFlower] = useState<FlowerConfig | null>(null);
-  const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null);
+  const [collectedFlowerIds, setCollectedFlowerIds] = useState<Set<string>>(new Set());
 
-  const handleSelectFlower = (flower: FlowerConfig, rect: DOMRect) => {
+  const interactiveFlowers = GARDEN_FLOWERS.filter((f) => f.interactive);
+  const totalInteractive = interactiveFlowers.length;
+
+  const handleSelectFlower = (flower: FlowerConfig) => {
     setSelectedFlower(flower);
-    setAnchorRect(rect);
+    setCollectedFlowerIds((prev) => {
+      const next = new Set(prev);
+      next.add(flower.id);
+      return next;
+    });
   };
 
   const handleCloseMessage = () => {
     setSelectedFlower(null);
-    setAnchorRect(null);
   };
 
   // Chia hoa theo layer để kiểm soát z-index và chiều sâu
@@ -37,6 +43,44 @@ export const FlowerGarden: React.FC<FlowerGardenProps> = ({ isGardenActive }) =>
         overflow: 'hidden',
       }}
     >
+      {/* Thanh chỉ dẫn tương tác khám phá hoa tinh tế */}
+      {isGardenActive && (
+        <div
+          className="flower-collection-pill"
+          style={{
+            position: 'fixed',
+            top: '20px',
+            left: '20px',
+            zIndex: 60,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '8px 16px',
+            backgroundColor: 'rgba(255, 252, 248, 0.92)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            border: '1px solid var(--color-card-border)',
+            borderRadius: '999px',
+            boxShadow: 'var(--shadow-soft)',
+            fontSize: '0.825rem',
+            fontFamily: 'var(--font-sans)',
+            color: 'var(--color-text-secondary)',
+            pointerEvents: 'auto',
+            animation: 'cardAppear 1s ease-out forwards',
+          }}
+        >
+          <span aria-hidden="true" style={{ fontSize: '1rem' }}>
+            🌷
+          </span>
+          <span>
+            Chạm vào các đóa hoa quanh vườn:
+            <strong style={{ color: 'var(--color-dusty-rose)', marginLeft: '4px' }}>
+              {collectedFlowerIds.size}/{totalInteractive}
+            </strong>
+          </span>
+        </div>
+      )}
+
       {/* Lớp hậu cảnh */}
       <div
         className="garden-layer-back"
@@ -101,12 +145,13 @@ export const FlowerGarden: React.FC<FlowerGardenProps> = ({ isGardenActive }) =>
         ))}
       </div>
 
-      {/* Lời chúc nhỏ khi bấm vào hoa */}
+      {/* Lời chúc nổi bật khi bấm vào hoa */}
       {selectedFlower && (
         <div style={{ pointerEvents: 'auto' }}>
           <FlowerMessage
             flower={selectedFlower}
-            anchorRect={anchorRect}
+            collectedCount={collectedFlowerIds.size}
+            totalInteractive={totalInteractive}
             onClose={handleCloseMessage}
           />
         </div>

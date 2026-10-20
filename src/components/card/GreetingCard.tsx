@@ -4,9 +4,10 @@ import { TypewriterText } from './TypewriterText';
 
 interface GreetingCardProps {
   isVisible: boolean;
+  onOpenGallery?: () => void;
 }
 
-export const GreetingCard: React.FC<GreetingCardProps> = ({ isVisible }) => {
+export const GreetingCard: React.FC<GreetingCardProps> = ({ isVisible, onOpenGallery }) => {
   if (!isVisible) return null;
 
   return (
@@ -197,7 +198,7 @@ export const GreetingCard: React.FC<GreetingCardProps> = ({ isVisible }) => {
         </p>
       </div>
 
-      {/* PHẦN FOOTER THIỆP (Không còn tên người gửi, hoàn toàn tôn vinh người nhận) */}
+      {/* PHẦN FOOTER THIỆP: Nút Sunset & Flora mở album ảnh tương tác */}
       <footer
         style={{
           marginTop: '28px',
@@ -210,36 +211,62 @@ export const GreetingCard: React.FC<GreetingCardProps> = ({ isVisible }) => {
           gap: '12px',
         }}
       >
-        {/* Điểm nhấn nhiếp ảnh hoàng hôn */}
-        <div
+        {/* Nút bấm tương tác Sunset & Flora mở Album ảnh */}
+        <button
+          type="button"
+          onClick={onOpenGallery}
+          aria-label="Mở album khoảnh khắc hoàng hôn và hoa của Tiên"
+          className="sunset-flora-action-btn"
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            fontSize: '0.8rem',
-            color: 'var(--color-text-muted)',
-            fontFamily: 'var(--font-sans)',
+            padding: '6px 12px',
+            borderRadius: '12px',
+            backgroundColor: 'rgba(255, 248, 240, 0.9)',
+            border: '1px solid rgba(244, 215, 161, 0.6)',
+            cursor: 'pointer',
+            transition: 'all 0.25s ease',
+            textAlign: 'left',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = '#FFFFFF';
+            e.currentTarget.style.borderColor = 'var(--color-dusty-rose)';
+            e.currentTarget.style.boxShadow = '0 4px 14px rgba(189, 126, 139, 0.25)';
+            e.currentTarget.style.transform = 'translateY(-1px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 248, 240, 0.9)';
+            e.currentTarget.style.borderColor = 'rgba(244, 215, 161, 0.6)';
+            e.currentTarget.style.boxShadow = 'none';
+            e.currentTarget.style.transform = 'none';
           }}
         >
-          <span style={{ fontSize: '1.2rem' }} role="img" aria-label="Máy ảnh hoàng hôn">
-            📷
+          <span style={{ fontSize: '1.3rem' }} role="img" aria-label="Máy ảnh hoàng hôn">
+            📸
           </span>
           <div>
-            <div style={{ fontWeight: 500, color: 'var(--color-warm-brown)' }}>Sunset & Flora</div>
-            <div style={{ fontSize: '0.72rem', opacity: 0.8 }}>Capture every precious moment</div>
+            <div style={{ fontWeight: 600, color: 'var(--color-warm-brown)', fontSize: '0.82rem' }}>
+              Sunset & Flora ✨
+            </div>
+            <div style={{ fontSize: '0.72rem', color: 'var(--color-dusty-rose)' }}>
+              Nhấn để xem album ảnh
+            </div>
           </div>
-        </div>
+        </button>
 
-        {/* Lời chúc tiếng Anh trang nhã bằng phông Cursive nghệ thuật */}
-        <div
-          style={{
-            fontFamily: 'var(--font-cursive)',
-            fontSize: '1.5rem',
-            color: 'var(--color-dusty-rose)',
-            letterSpacing: '0.02em',
-          }}
-        >
-          Always bloom in your own way ✨
+        {/* Lời chúc kết thân ái */}
+        <div style={{ textAlign: 'right' }}>
+          <div
+            style={{
+              fontFamily: 'var(--font-cursive)',
+              fontSize: '1.35rem',
+              color: 'var(--color-dusty-rose)',
+              letterSpacing: '0.02em',
+            }}
+          >
+            {MAIN_GREETING.signOff} ✨
+          </div>
         </div>
       </footer>
     </article>

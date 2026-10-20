@@ -5,12 +5,14 @@ import { FlowerGarden } from './components/garden/FlowerGarden';
 import { PetalLayer } from './components/garden/PetalLayer';
 import { GreetingCard } from './components/card/GreetingCard';
 import { MusicToggle } from './components/controls/MusicToggle';
+import { PolaroidGallery } from './components/gallery/PolaroidGallery';
 import { useAudio } from './hooks/useAudio';
 import './styles/global.css';
 
 export const App: React.FC = () => {
   // Giai đoạn trải nghiệm: 'invitation' -> 'garden'
   const [isOpened, setIsOpened] = useState(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const { isPlaying, audioMode, isMuted, togglePlay, toggleMute, startAudio } = useAudio();
 
   const handleOpenEnvelope = () => {
@@ -60,7 +62,7 @@ export const App: React.FC = () => {
           overflowX: 'hidden',
         }}
       >
-        {/* Lớp các loài hoa nở nhiều tầng (Back, Mid, Front) */}
+        {/* Lớp các loài hoa nở nhiều tầng (Back, Mid, Front) & theo dõi khám phá hoa */}
         <FlowerGarden isGardenActive={isOpened} />
 
         {/* Lớp cánh hoa rơi trôi bồng bềnh */}
@@ -77,7 +79,10 @@ export const App: React.FC = () => {
             justifyContent: 'center',
           }}
         >
-          <GreetingCard isVisible={isOpened} />
+          <GreetingCard
+            isVisible={isOpened}
+            onOpenGallery={() => setIsGalleryOpen(true)}
+          />
         </section>
 
         {/* Nút xem lại phong bì & lời cảm ơn tinh tế ở đáy trang */}
@@ -120,6 +125,12 @@ export const App: React.FC = () => {
           </footer>
         )}
       </main>
+
+      {/* MODAL ALBUM ẢNH POLAROID SUNSET & FLORA */}
+      <PolaroidGallery
+        isOpen={isGalleryOpen}
+        onClose={() => setIsGalleryOpen(false)}
+      />
     </div>
   );
 };
